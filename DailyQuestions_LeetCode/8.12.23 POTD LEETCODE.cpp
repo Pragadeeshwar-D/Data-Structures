@@ -1,48 +1,61 @@
-/*1903. Largest Odd Number in String
+/*606. Construct String from Binary Tree
 
-You are given a string num, representing a large integer. Return the largest-valued odd integer (as a string) that is a non-empty substring of num, or an empty string "" if no odd integer exists.
-
-A substring is a contiguous sequence of characters within a string.
-
- 
+Given the root of a binary tree, construct a string consisting of parenthesis and integers from a binary tree with the preorder traversal way, and return it.
+Omit all the empty parenthesis pairs that do not affect the one-to-one mapping relationship between the string and the original binary tree.
 
 Example 1:
 
-Input: num = "52"
-Output: "5"
-Explanation: The only non-empty substrings are "5", "2", and "52". "5" is the only odd number.
+Input: root = [1,2,3,4]
+Output: "1(2(4))(3)"
+Explanation: Originally, it needs to be "1(2(4)())(3()())", but you need to omit all the unnecessary empty parenthesis pairs. And it will be "1(2(4))(3)"
 Example 2:
 
-Input: num = "4206"
-Output: ""
-Explanation: There are no odd numbers in "4206".
-Example 3:
 
-Input: num = "35427"
-Output: "35427"
-Explanation: "35427" is already an odd number.
-*/
+Input: root = [1,2,3,null,4]
+Output: "1(2()(4))(3)"
+Explanation: Almost the same as the first example, except we cannot omit the first parenthesis pair to break the one-to-one mapping relationship between the input and the output.*/
+
 
 SOLUTION :
 
-
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
 class Solution {
-public:
-    string largestOddNumber(string num) {
-        int n = num.size()-1;
-        if(num[n]%2==1)
+    String ans;
+    void construct(TreeNode root){
+         if(root == null)
         {
-            return num;
+            return;
         }
-        for(int i=n;i>=0;i--)
+        ans+=root.val;
+        if(root.left == null && root.right == null) return ; 
+        ans+="(";
+        construct(root.left);
+        ans+=")";
+        if(root.right!=null)
         {
-            if(num[i]%2==1)
-            {
-                return num.substr(0,i+1);
-            }
+            ans+="(";
+            construct(root.right);
+            ans+=")";
         }
-        return "";
+    }
+    public String tree2str(TreeNode root) {
+          ans = "";
+          construct(root);
+          return ans;
 
     }
-};
- 
+}
