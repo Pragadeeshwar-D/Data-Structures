@@ -109,6 +109,11 @@ DAY 10
 
  POTD_LEETCODE - TRANSPOSE MATRIX
  
+ DAY 19
+
+ ARRAYS_LEETCODE - Maximum Gap
+
+ POTD_LEETCODE - Element Appearing More than 25% in a sorted array 
 
  
  
